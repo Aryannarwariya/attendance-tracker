@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Attendance Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="top-bar">
+    <h1>College Attendance Tracker</h1>
+    <nav class="tab-row">
+      <button class="tab-button active" data-page="dashboardPage">Dashboard</button>
+      <button class="tab-button" data-page="subjectsPage">Subjects</button>
+      <button class="tab-button" data-page="markPage">Mark Attendance</button>
+      <button class="tab-button" data-page="historyPage">History</button>
+    </nav>
+  </header>
+
+  <main class="content-card">
+    <div id="messageBox" class="message hidden"></div>
+
+    <section id="dashboardPage" class="page">
+      <div class="target-row">
+        <label for="targetInput">Target attendance (%)</label>
+        <input type="number" id="targetInput" min="1" max="100" step="1" value="75" />
+      </div>
+
+      <div class="summary-grid">
+        <div class="stat-box">
+          <span class="stat-label">Subjects</span>
+          <span class="stat-value" id="summarySubjects">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Overall attendance</span>
+          <span class="stat-value highlight" id="summaryOverall">N/A</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Classes conducted</span>
+          <span class="stat-value" id="summaryConducted">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Classes attended</span>
+          <span class="stat-value" id="summaryAttended">0</span>
+        </div>
+      </div>
+
+      <div id="subjectCards" class="subject-cards"></div>
+      <p id="noSubjectsText" class="empty-text">No subjects yet. Add your subjects on the Subjects page.</p>
+    </section>
+
+    <section id="subjectsPage" class="page hidden">
+      <h2>Add a subject</h2>
+      <form id="subjectForm" class="form-row">
+        <input type="text" id="subjectName" placeholder="Subject name (required)" maxlength="100" required />
+        <input type="text" id="subjectCode" placeholder="Subject code (optional)" maxlength="20" />
+        <button type="submit" class="btn btn-primary">Add subject</button>
+      </form>
+
+      <h2>Your subjects</h2>
+      <ul id="subjectList" class="item-list"></ul>
+      <p id="noSubjectListText" class="empty-text hidden">No subjects added yet.</p>
+    </section>
+
+    <section id="markPage" class="page hidden">
+      <div class="form-row">
+        <label for="attendanceDate">Date</label>
+        <input type="date" id="attendanceDate" />
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Mark as</th>
+              <th>Saved status</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceRows"></tbody>
+        </table>
+      </div>
+
+      <div class="form-actions">
+        <button id="saveAttendanceBtn" class="btn btn-primary">Save attendance</button>
+      </div>
+    </section>
+
+    <section id="historyPage" class="page hidden">
+      <div class="form-row">
+        <label for="historySubject">Subject</label>
+        <select id="historySubject"></select>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status (change to correct)</th>
+            </tr>
+          </thead>
+          <tbody id="historyRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
